@@ -2,7 +2,7 @@ import java.text.DecimalFormat;
 
 public class Main {
     public static void main(String[] args) {
-        String directory = "./src";
+        String directory = "./FakeCode";
         if(args.length == 1){
             directory = args[0];
         }

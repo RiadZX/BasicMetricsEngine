@@ -59,7 +59,7 @@ public class Application {
         var allStyles= files.stream()
                 .map(file -> {
                     try {
-                        return new CodeStyleChecker(new BufferedReader(new FileReader(file))).getComplexity();
+                        return new CodeStyleChecker(new BufferedReader(new FileReader(file))).getCheckStyle();
                     } catch (Exception e) {
                         throw new IllegalArgumentException("Could not read file.");
                     }

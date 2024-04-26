@@ -5,11 +5,17 @@ private class Fake2 {
         }
     }
 
-    private List<T> JetBrainsBest() {
+    private List<T> TooComplex() {
         if (1 == 1) {
             if (1 == 1) {
                 while (1 != 1) {
+                    if (1 == 1) {
+                        if (1 == 1) {
+                            while (1 != 1) {
 
+                            }
+                        }
+                    }
                 }
             }
         }

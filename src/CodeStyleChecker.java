@@ -1,6 +1,5 @@
 import java.io.BufferedReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
@@ -18,7 +17,7 @@ public class CodeStyleChecker {
         }
         this.reader = reader;
     }
-    public List<CodeStyleResult> getComplexity() {
+    public List<CodeStyleResult> getCheckStyle() {
         Stack<Integer> stack = new Stack<>(); //stores the index of the opening bracket
         List<CodeStyleResult> results = new ArrayList<>();
         List<String> lines = reader.lines().toList();

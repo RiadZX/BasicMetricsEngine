@@ -35,7 +35,7 @@ class CodeStyleCheckerTest {
                 new CodeStyleResult("fooBar", true),
                 new CodeStyleResult("JetBrainsBest", false)
         );
-        assertEquals(results, codeStyleChecker.getComplexity());
+        assertEquals(results, codeStyleChecker.getCheckStyle());
     }
 
     @Test
@@ -52,7 +52,7 @@ class CodeStyleCheckerTest {
                 new CodeStyleResult("fooBar", true),
                 new CodeStyleResult("JetBrainsBest", false)
         );
-        assertEquals(results, codeStyleChecker.getComplexity());
+        assertEquals(results, codeStyleChecker.getCheckStyle());
     }
 
     static List<Object[]> testCases() {
