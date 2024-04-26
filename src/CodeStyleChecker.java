@@ -13,7 +13,9 @@ public class CodeStyleChecker {
      * @param reader Reader object that has the file to be checked.
      */
     public CodeStyleChecker(BufferedReader reader){
-        if (reader == null) throw new IllegalArgumentException("Reader cannot be null.");
+        if (reader == null) {
+            throw new IllegalArgumentException("Reader cannot be null.");
+        }
         this.reader = reader;
     }
     public List<CodeStyleResult> getComplexity() {
@@ -56,7 +58,7 @@ public class CodeStyleChecker {
         return results;
     }
 
-    private boolean isCamelCase(String currentMethod) {
+    public boolean isCamelCase(String currentMethod) {
         if (currentMethod == null) throw new IllegalArgumentException("Method name cannot be null.");
         if (currentMethod.isEmpty()) return false;
         if (!isLowerCase(currentMethod.charAt(0))) return false;

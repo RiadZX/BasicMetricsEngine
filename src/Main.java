@@ -1,16 +1,21 @@
-import java.io.BufferedReader;
-import java.io.File;
 import java.text.DecimalFormat;
-import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Application app = new Application();
-        var complexityResults = app.getComplexity("./FakeCode");
-        for (ComplexityResult result : complexityResults) {
-            System.out.println(result.getMethodName() + " has a complexity of " + result.getComplexity());
+        String directory = "./src";
+        if(args.length == 1){
+            directory = args[0];
         }
-        double codeStyle = app.getCodeStyle("./FakeCode");
+        Application app = new Application();
+        var complexityResults = app.getComplexity(directory);
+
+        System.out.printf("%-20s | %s%n", "methodname", "complexity");
+        System.out.println("----------------------------------------");
+        for (ComplexityResult result : complexityResults) {
+            System.out.printf("%-20s | %d%n", result.getMethodName(), result.getComplexity());
+        }
+        System.out.println("----------------------------------------");
+        double codeStyle = app.getCodeStyle(directory);
         System.out.println("Percentage of noncamel methods: " +  new DecimalFormat("#.##").format(codeStyle) + "%");
     }
 }

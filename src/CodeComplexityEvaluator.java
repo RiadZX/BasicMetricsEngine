@@ -43,8 +43,12 @@ public class CodeComplexityEvaluator {
             }
             if(containsKeyword(line)
                             && !stack.isEmpty()){
-                complexity++;
-                stack.push(i);
+                if(!line.contains("{")){
+                    complexity++;
+                }else{
+                    complexity++;
+                    stack.push(i);
+                }
             }
             if (line.contains("}") && !stack.isEmpty()) {
                 stack.pop();
