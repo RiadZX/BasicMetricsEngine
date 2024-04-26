@@ -53,7 +53,6 @@ public class CodeStyleChecker {
                     totalMethods++;
                     if(!isCamelCase(methodName)){
                         //Method name is not in camelCase.
-                        System.out.println("Method name is not in camelCase at line "+ i);
                         methodsNotInCamelCase++;
                     }
 
@@ -63,8 +62,6 @@ public class CodeStyleChecker {
                     String methodName = getMethodName(words);
                     totalMethods++;
                     if(!isCamelCase(methodName)){
-                        //Method name is not in camelCase.
-                        System.out.println("Method name is not in camelCase at line "+ i);
                         methodsNotInCamelCase++;
                     }
                 }
@@ -73,7 +70,8 @@ public class CodeStyleChecker {
         }
         System.out.println("Total methods: "+totalMethods);
         System.out.println("Methods not in camelCase: "+methodsNotInCamelCase);
-        return (methodsNotInCamelCase*100.0)/totalMethods;
+        // round output to 2 decimals
+        return Math.round(((double)methodsNotInCamelCase/totalMethods)*100.0*100.0)/100.0;
     }
 
     /**
