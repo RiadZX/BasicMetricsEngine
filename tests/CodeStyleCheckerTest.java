@@ -11,7 +11,8 @@ class CodeStyleCheckerTest {
 
     List<String> files = List.of(
             "./FakeCode/Main.java",
-            "./src/CodeStyleChecker.java"
+            "./src/CodeStyleChecker.java",
+            "./FakeCode/Fake2.java"
     );
     @Test
     void testCheckCodeStyle() throws FileNotFoundException {
@@ -36,8 +37,12 @@ class CodeStyleCheckerTest {
                 , percentageThatDoesNotAdhere);
     }
 
-
-
-
-
+    @Test
+    void testCheckCamelCase3() throws FileNotFoundException {
+        CodeStyleChecker codeStyleChecker = new CodeStyleChecker(new BufferedReader(new FileReader(files.getLast())));
+        double percentageThatDoesNotAdhere = codeStyleChecker.checkCamelCase();
+        assertEquals(
+                50
+                , percentageThatDoesNotAdhere);
+    }
 }

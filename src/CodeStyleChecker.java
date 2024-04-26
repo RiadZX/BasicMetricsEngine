@@ -100,7 +100,7 @@ public class CodeStyleChecker {
     private String getMethodName(String line){
         if(line==null || line.isEmpty()) throw new IllegalArgumentException("line cannot be null or empty.");
         boolean flag = false;
-        String methodName = "";
+        StringBuilder methodName = new StringBuilder();
         //algorithm:
         //iterate over each character.
         //if character is a letter, add it to methodName.
@@ -109,7 +109,7 @@ public class CodeStyleChecker {
         //if flag is true, and we encounter another letter -> flag = false, reset methodName.
         for(int i=0;i<line.length();i++){
             if((isLetter(line.charAt(i)) || allowedCharsInName.contains(line.charAt(i))) && !flag){
-                methodName += line.charAt(i);
+                methodName.append(line.charAt(i));
                 continue;
             }
             if(line.charAt(i)==' '){
@@ -121,11 +121,11 @@ public class CodeStyleChecker {
             }
             if(flag && (isLetter(line.charAt(i)) || allowedCharsInName.contains(line.charAt(i)))){
                 flag = false;
-                methodName = "";
-                methodName += line.charAt(i);
+                methodName = new StringBuilder();
+                methodName.append(line.charAt(i));
             }
         }
-        return methodName;
+        return methodName.toString();
     }
 
     /**
