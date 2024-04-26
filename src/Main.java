@@ -1,21 +1,16 @@
 import java.io.BufferedReader;
 import java.io.File;
+import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        BufferedReader reader = null;
-        try {
-            reader = new BufferedReader(new java.io.FileReader(new File("./FakeCode/Main.java")));
-        } catch (Exception e) {
-            System.out.println("File not found.");
-            return;
+        Application app = new Application();
+        var complexityResults = app.getComplexity("./FakeCode");
+        for (ComplexityResult result : complexityResults) {
+            System.out.println(result.getMethodName() + " has a complexity of " + result.getComplexity());
         }
-
-        // CodeStyleChecker currently validates only camelCase.
-        CodeStyleChecker codeStyleChecker = new CodeStyleChecker(reader);
-        double percentageThatDoesNotAdhere = codeStyleChecker.checkCamelCase();
-
-        System.out.println(percentageThatDoesNotAdhere);
+        double codeStyle = app.getCodeStyle("./FakeCode");
+        System.out.println("Percentage of noncamel methods: " +  new DecimalFormat("#.##").format(codeStyle) + "%");
     }
 }

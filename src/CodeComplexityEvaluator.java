@@ -4,7 +4,10 @@ import java.util.*;
 public class CodeComplexityEvaluator {
     private BufferedReader reader;
 
-
+    /**
+     * Single file evaluator for code complexity.
+     * @param reader BufferedReader object that has the file to be checked.
+     */
     public CodeComplexityEvaluator(BufferedReader reader) {
         this.reader = reader;
     }
@@ -52,7 +55,7 @@ public class CodeComplexityEvaluator {
     }
 
     private static boolean containsKeyword(String line) {
-        List<String> keywords = List.of("if", "else", "for", "while");
+        List<String> keywords = List.of("if", "else", "for", "while","switch");
         return keywords.stream().anyMatch(line::contains);
     }
 
