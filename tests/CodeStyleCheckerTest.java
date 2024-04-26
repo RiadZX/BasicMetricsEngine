@@ -32,9 +32,11 @@ class CodeStyleCheckerTest {
         CodeStyleChecker codeStyleChecker = new CodeStyleChecker(new BufferedReader(new FileReader(files.get(1))));
         double percentageThatDoesNotAdhere = codeStyleChecker.checkCamelCase();
         assertEquals(
-                100
+                80.0
                 , percentageThatDoesNotAdhere);
     }
+
+
 
 
 

@@ -10,7 +10,10 @@ public class CodeStyleChecker {
      * List of keywords that are banned in the code when checking for camelCase in a *method* name.
      */
     private final List<String> bannedKeywords = List.of(
-            "if", "class", "while", "for", "switch", "case", "default"
+            "if", "class", "while", "for", "switch", "case", "default", "/", "*", "import", "package", "}"
+    );
+    private final List<Character> allowedCharsInName = List.of(
+            '_', '$', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
     );
 
     /**
@@ -46,10 +49,9 @@ public class CodeStyleChecker {
                 if (trimmedLine.charAt(0)=='{') {
                     //The method name is on the previous line.
                     String lineBefore = lines.get(i-1);
-                    List<String> words = Arrays.stream(lineBefore.split(" ")).toList();
                     if(lineBefore.contains("{")) continue;
                     if (!isLineValid(lineBefore)) continue;
-                    String methodName = getMethodName(words);
+                    String methodName = getMethodName(lineBefore);
                     totalMethods++;
                     if(!isCamelCase(methodName)){
                         //Method name is not in camelCase.
@@ -57,9 +59,8 @@ public class CodeStyleChecker {
                     }
 
                 } else{
-                    List<String> words = Arrays.stream(line.split(" ")).toList();
                     if (!isLineValid(line)) continue;
-                    String methodName = getMethodName(words);
+                    String methodName = getMethodName(line);
                     totalMethods++;
                     if(!isCamelCase(methodName)){
                         methodsNotInCamelCase++;
@@ -86,26 +87,45 @@ public class CodeStyleChecker {
         List<String> words = Arrays.stream(line.split(" ")).toList();
         //We check if it is a for loop, if statement, switch, class declaration or method declaration.
         //HANDLE OTHER KEYWORDS HERE.
-        return bannedKeywords.stream().noneMatch(words::contains);
+        //if line starts with any of the banned keywords, return false.
+        boolean startsWithBannedKeyword = bannedKeywords.stream().anyMatch(line.trim()::startsWith);
+        return !startsWithBannedKeyword && bannedKeywords.stream().noneMatch(words::contains);
     }
 
     /**
      * This method cleans the method name by removing any special characters.
-     * @param words list of words in the line.
+     * @param line line containing the method name.
      * @return cleaned word.
      */
-    private String getMethodName(List<String> words){
-        if(words==null || words.isEmpty()) throw new IllegalArgumentException("Words cannot be null or empty.");
-        //Last word might be a { when having a whitespace between method name and {
-        String lastWord = words.getLast();
-        if(lastWord.trim().equals("{") || lastWord.trim().equals("{}")) lastWord = words.get(words.size()-2);
-        StringBuilder cleanedWord = new StringBuilder();
-
-        for(int i=0;i<lastWord.length();i++){
-            if(lastWord.charAt(i)=='{' || lastWord.charAt(i)=='(' || lastWord.charAt(i)=='[' || lastWord.charAt(i)=='}' || lastWord.charAt(i)==')' || lastWord.charAt(i)==']') continue;
-            cleanedWord.append(lastWord.charAt(i));
+    private String getMethodName(String line){
+        if(line==null || line.isEmpty()) throw new IllegalArgumentException("line cannot be null or empty.");
+        boolean flag = false;
+        String methodName = "";
+        //algorithm:
+        //iterate over each character.
+        //if character is a letter, add it to methodName.
+        //if character is a space, set flag to true.
+        //if character is ( , then stop -> this is the end of method name.
+        //if flag is true, and we encounter another letter -> flag = false, reset methodName.
+        for(int i=0;i<line.length();i++){
+            if((isLetter(line.charAt(i)) || allowedCharsInName.contains(line.charAt(i))) && !flag){
+                methodName += line.charAt(i);
+                continue;
+            }
+            if(line.charAt(i)==' '){
+                flag = true;
+                continue;
+            }
+            if(line.charAt(i)=='('){
+                break;
+            }
+            if(flag && (isLetter(line.charAt(i)) || allowedCharsInName.contains(line.charAt(i)))){
+                flag = false;
+                methodName = "";
+                methodName += line.charAt(i);
+            }
         }
-        return cleanedWord.toString();
+        return methodName;
     }
 
     /**
