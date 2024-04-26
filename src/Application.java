@@ -36,7 +36,7 @@ public class Application {
                         throw new IllegalArgumentException("Could not read file.");
                     }
                 }).flatMap(List::stream).sorted(
-                        (c1, c2) -> c2.getComplexity() - c1.getComplexity() //the comparator to sort in desceinding order
+                        (c1, c2) -> c2.complexity() - c1.complexity() //the comparator to sort in desceinding order
                 ).limit(3).toList();
 
         return allComplexities;

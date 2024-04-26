@@ -8,14 +8,14 @@ public class Main {
         }
         Application app = new Application();
         var complexityResults = app.getComplexity(directory);
-
+        //These  % and s are for formatting the output in a table format.
         System.out.printf("%-20s | %s%n", "methodname", "complexity");
         System.out.println("----------------------------------------");
         for (ComplexityResult result : complexityResults) {
-            System.out.printf("%-20s | %d%n", result.getMethodName(), result.getComplexity());
+            System.out.printf("%-20s | %d%n", result.methodName(), result.complexity());
         }
         System.out.println("----------------------------------------");
         double codeStyle = app.getCodeStyle(directory);
-        System.out.println("Percentage of noncamel methods: " +  new DecimalFormat("#.##").format(codeStyle) + "%");
+        System.out.println("Percentage of nonCamel methods: " +  new DecimalFormat("#.##").format(codeStyle) + "%");
     }
 }
