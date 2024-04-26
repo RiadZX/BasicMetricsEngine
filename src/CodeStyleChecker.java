@@ -21,6 +21,7 @@ public class CodeStyleChecker {
      * @param reader Reader object that has the file to be checked.
      */
     public CodeStyleChecker(BufferedReader reader) {
+        if (reader == null) throw new IllegalArgumentException("Reader cannot be null.");
         this.reader = reader;
     }
 
