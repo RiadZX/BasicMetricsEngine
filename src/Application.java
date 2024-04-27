@@ -3,6 +3,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.List;
 
+/**
+ * The Application class is the main class that is used to get the complexity and code style of a directory.
+ */
 public class Application {
     public Application() {}
     /**
