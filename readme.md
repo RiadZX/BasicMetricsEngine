@@ -14,15 +14,15 @@
 2. I split up the project into smaller manageable tasks.
 3. I decided to first start with the ComplexityEvaluator, since it is the core of the project.
 
-    I first created a class to get the complexity of the methods in a single file. Once I had the skeleton of the class, I started thinking about the algorithm to calculate the complexity of each method and get the name of the method. 
+    I first created a class to get the complexity of the methods in a single file. Once I had the skeleton of the class, I started thinking about the algorithm to  Run the main method in the `Main` class and get the name of the method. 
 
     The two most important aspects of the algorithm were:
     - Knowing when you are in a method, if, for, while, or not at all.
     - If you know that you are in a method, what is the name of the method.
 
-    I came up with an algorithm to solve these two problems. To know wether you are in a method or some conditional statement I decided to use the stack. The stack indicated the **_depth_** of the code. By depth I mean how many curly braces are you nested in. 
-
-    For getting the name of the method, there were a couple of points that I had to account for:
+    I came up with an algorithm to solve these two problems. To know whether you are in a method or some conditional statement I decided to use the stack. The stack indicated the **_depth_** of the code. By depth I mean how many curly braces are you nested in. 
+    
+    **For getting the name of the method**, there were a couple of points that I had to account for:
    - Is the opening curly bracket on the same line of the method definition?
    - Is it on the line below it, or perhaps 10 lines below. With method parameters in between.
 
@@ -30,7 +30,7 @@
    - We get the index of an opening curly bracket `{`, that belongs to a method, from the algorithm described above.
    - We get the index of the `{`, on that line, and start _walking_ backwards until we encounter an opening round bracket `(`. Any word before this, must then be the name of the method. Now this `(`, could be on the same line or `x` lines above it. So we must also take that into account.
 
-4. Since we know have the complexity evaluator done, I copied and pasted the algorithm into the CodeStyleChecker class, such that it only gets the method name, and checks whether its lower camelCase or not.
+4. Since we know have the complexity evaluator done, I copied and pasted the algorithm into the CodeStyleChecker class and tweaked such that it only gets the method name, and checks whether its lower camelCase or not.
 5. I then created an ``Application`` class, which uses both previous classes, and gives the ability to run the methods on all files in a directory rather than a single file.
 6. In Main I call the ``Application`` class, and print the results in a formatted table.
 
