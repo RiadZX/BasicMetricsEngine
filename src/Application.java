@@ -4,9 +4,7 @@ import java.io.FileReader;
 import java.util.List;
 
 public class Application {
-    public Application() {
-    }
-
+    public Application() {}
     /**
      * Get the top 3 methods with the highest complexity.
      * Uses the CodeComplexityEvaluator to get the complexity of each method, of each file in the directory.
@@ -15,18 +13,7 @@ public class Application {
      * @return List of ComplexityResult objects. Top 3 based on complexity.
      */
     public List<ComplexityResult> getComplexity(String directory) {
-        if (directory == null) throw new IllegalArgumentException("Directory cannot be null.");
-        List<File> files = null;
-        try {
-            files = List.of(new File(directory).listFiles())
-                    .stream()
-                    .filter(file -> file.getName().endsWith(".java"))
-                    .toList();
-        } catch (NullPointerException e) {
-            throw new IllegalArgumentException("Directory does not exist.");
-        }
-
-        if (files == null || files.isEmpty()) throw new IllegalArgumentException("Could not find .java files");
+        List<File> files = getJavaFiles(directory);
 
         var allComplexities= files.stream()
                 .map(file -> {
@@ -42,21 +29,32 @@ public class Application {
         return allComplexities;
     }
 
-    public double getCodeStyle(String directory){
-        if (directory == null) throw new IllegalArgumentException("Directory cannot be null.");
-        List<File> files = null;
+    /**
+     * Get all the .java files in the directory.
+     * @param directory The directory to search for .java files.
+     * @return List of File objects.
+     */
+    private List<File> getJavaFiles(String directory) throws IllegalArgumentException {
+        if(directory == null) throw new IllegalArgumentException("Directory cannot be null.");
         try {
-            files = List.of(new File(directory).listFiles())
+            List<File> files = List.of(new File(directory).listFiles())
                     .stream()
                     .filter(file -> file.getName().endsWith(".java"))
                     .toList();
+            return files;
         } catch (NullPointerException e) {
             throw new IllegalArgumentException("Directory does not exist.");
         }
+    }
 
-        if (files == null || files.isEmpty()) throw new IllegalArgumentException("Could not find .java files");
-
-        var allStyles= files.stream()
+    /**
+     * Get the percentage of methods that are not in lowerCamelCase.
+     * @param directory The directory with the Java files.
+     * @return The percentage of methods that are not in lowerCamelCase.
+     */
+    public double getCodeStyle(String directory){
+        List<File> files = getJavaFiles(directory);
+        List<CodeStyleResult> allStyles= files.stream()
                 .map(file -> {
                     try {
                         return new CodeStyleChecker(new BufferedReader(new FileReader(file))).getCheckStyle();

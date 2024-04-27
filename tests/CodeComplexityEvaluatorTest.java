@@ -15,7 +15,7 @@ class CodeComplexityEvaluatorTest {
                         new FileReader("./FakeCode/Fake2.java")));
         List<ComplexityResult> results = List.of(
                 new ComplexityResult("fooBar", 1),
-                new ComplexityResult("JetBrainsBest", 3)
+                new ComplexityResult("TooComplex", 6)
         );
         assertEquals(results, codeComplexityEvaluator.getComplexity());
     }

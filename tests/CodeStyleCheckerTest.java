@@ -33,7 +33,7 @@ class CodeStyleCheckerTest {
         CodeStyleChecker codeStyleChecker = new CodeStyleChecker(bufferedReader);
         List<CodeStyleResult> results = List.of(
                 new CodeStyleResult("fooBar", true),
-                new CodeStyleResult("JetBrainsBest", false)
+                new CodeStyleResult("TooComplex", false)
         );
         assertEquals(results, codeStyleChecker.getCheckStyle());
     }
